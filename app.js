@@ -1,4 +1,9 @@
-// Data Loading Spinner added for bonus Mark 
+//Extra added things
+// 1.Data Loading Spinner added for bonus Mark 
+//2. Creating a back button on slider showcase so that user can go back 
+//3. Error message will be shown to user if there will be nothing to show user matching his/her search term
+//4.User can click enter after putting value of slider duration to create a slider
+
 
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
@@ -7,7 +12,7 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 
-// search item on pushing enter key 
+// search item when user push enter key  on input area
 
 document.getElementById('search').addEventListener("keyup", function(event) {
   
@@ -16,6 +21,8 @@ document.getElementById('search').addEventListener("keyup", function(event) {
     searchBtn.click();
   }
 });
+
+
 // selected image 
 let sliders = [];
 
@@ -27,7 +34,11 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  imagesArea.style.display = 'block';
+  if(images.length == 0){
+    alert("There is no matching item with your search term ");
+   
+  }else{
+    imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
@@ -38,6 +49,9 @@ const showImages = (images) => {
     gallery.appendChild(div);
     
   })
+  
+  }
+  
   toggleDataSpinner()
 
 }
@@ -54,16 +68,16 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.toggle('added');
-  sliders.push(img);
-  // let item = sliders.indexOf(img);
-  // if (item === -1) {
-  //   sliders.push(img);
-  // } else {
-  //   alert('Hey, Already added !')
-  // }
+  let item = sliders.indexOf(img);
+  if (item === -1) {
+    sliders.push(img);
+  } else {
+    //so that unsellect item don't get chance to shown in slider
+    sliders.splice(item,1)
+  }
 }
 
-//Toggle  spinner 
+//Toggle  spinner (will be shown when data is loading from api)
 
 const toggleDataSpinner = ()=>{
 
@@ -74,6 +88,22 @@ const toggleDataSpinner = ()=>{
 
 }
 
+//Adding a back button so that user can go back
+
+const goBack = ()=>{
+  
+  document.querySelector('.main').style.display = 'none';
+  imagesArea.style.display = 'block';
+
+}
+// User can click enter after putting value of slider duration to create a slider
+document.getElementById('duration').addEventListener("keyup", function(event) {
+  
+  if (event.key == 'Enter') {
+    // Trigger the button element with a click
+    sliderBtn.click();
+  }
+});
 
 var timer
 const createSlider = () => {
