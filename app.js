@@ -62,19 +62,16 @@ const selectItem = (event, img) => {
   //   alert('Hey, Already added !')
   // }
 }
-// spinner 
+
+//Toggle  spinner 
 
 const toggleDataSpinner = ()=>{
 
-const spiner= document.getElementById('loading_spinner');
-spiner.classList.toggle('d-none')
-// if(show){
-//   spiner.classList.remove('d-none')
+  const spiner= document.getElementById('loading_spinner');
+  const imgGallary = document.getElementById('img_gallery')
+  spiner.classList.toggle('d-none');
+  imgGallary.classList.toggle('d-none');
 
-// }
-// else{
-//   spiner.classList.add('d-none')
-// }
 }
 
 
